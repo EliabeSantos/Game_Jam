@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -27,6 +28,8 @@ public class Main extends Canvas implements Runnable,KeyListener{
 	public static int HEIGHT = 160;
 	private final int SCALE = 3;
 	
+	public static Random rand;
+	
 	private BufferedImage image;
 	
 	public static World world;
@@ -36,6 +39,7 @@ public class Main extends Canvas implements Runnable,KeyListener{
 	public static player player;
 	
 	public Main() {
+		rand = new Random();
 		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
@@ -116,6 +120,7 @@ public class Main extends Canvas implements Runnable,KeyListener{
 		double delta = 0;
 		int frames = 0;
 		double timer = System.currentTimeMillis();
+		requestFocus();
 		while(isRunning) {
 			long now = System.nanoTime();	
 			delta += (now - lastTime) / ns;
