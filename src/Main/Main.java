@@ -3,7 +3,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -16,6 +15,7 @@ import javax.swing.JFrame;
 import entities.entity;
 import entities.player;
 import graficos.sprite_sheet;
+import world.World;
 
 public class Main extends Canvas implements Runnable,KeyListener{
 	
@@ -23,26 +23,30 @@ public class Main extends Canvas implements Runnable,KeyListener{
 	public static JFrame frame;
 	private Thread thread;
 	private boolean isRunning = true;
-	private final int WIDTH = 160;
-	private final int HEIGHT = 120;
-	private final int SCALE = 4;
+	private final int WIDTH = 320;
+	private final int HEIGHT = 320;
+	private final int SCALE = 2;
 	
 	private BufferedImage image;
 	
-	public List<entity> entities;
+	public static World world;
+	
+	public static List<entity> entities;
 	public static sprite_sheet spritesheet;
-	private player player;
+	public static player player;
 	
 	public Main() {
 		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		entities = new ArrayList<entity>();
 		spritesheet = new sprite_sheet("/spritesheet.png");
 		
 		player = new player(0,0,16,16,spritesheet.getSprite(32, 0, 16, 16));
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		entities = new ArrayList<entity>();
 		entities.add(player);
+		world = new World("/mapa.png");
+		
 	}
 	public void initFrame() {
 		frame = new JFrame("Rinha De galo");	
@@ -79,6 +83,7 @@ public class Main extends Canvas implements Runnable,KeyListener{
 		}
 	}
 	public void render() {
+		
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
@@ -90,6 +95,8 @@ public class Main extends Canvas implements Runnable,KeyListener{
 		
 		g.setColor(new Color(255,255,255));
 		g.fillRect(0, 0,160,120);
+		
+		world.render(g);
 		
 		for(int i = 0; i < entities.size(); i++) {
 			entity e = entities.get(i);

@@ -4,6 +4,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class entity {
+	
+	public static BufferedImage LIFEPACK_EN = Main.Main.spritesheet.getSprite(7*16, 0, 16, 16);
+	public static BufferedImage GUN_EN = Main.Main.spritesheet.getSprite(8*16, 0, 16, 16);
+	public static BufferedImage AMMO_EN = Main.Main.spritesheet.getSprite(9*16, 0, 16, 16);
+	public static BufferedImage ENEMY_EN = Main.Main.spritesheet.getSprite(6*16, 0, 16, 16);
+	
 	protected double x;
 	protected double y;
 	protected int width;
