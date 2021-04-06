@@ -11,7 +11,8 @@ public class player extends entity{
 	public boolean right, left, up, down;
 	public double speed = 0.9;
 	
-	private int frames = 0;
+	private int frames = 0, maxFrames = 5, index = 0, maxIndex = 3;
+	private boolean moved = false;
 	private BufferedImage[] rightPlayer;
 	private BufferedImage[] leftPlayer;
 
@@ -30,24 +31,39 @@ public class player extends entity{
 	}
 	
 	public void tick() {
+		moved = false;
 		if(right) {
+			moved = true;
 			dir = right_dir;
 			x+=speed;
 		}else if(left) {
+			moved = true;
 			x-=speed;
 			dir = left_dir;
 		}
 		if(up) {
+			moved = true;
 			y-=speed;
 		}else if(down) {
+			moved = true;
 			y+=speed;
+		}
+		if(moved) {
+			frames++;
+			if(frames == maxFrames) {
+				frames = 0;
+				index++;
+				if(index > maxIndex) {
+					index = 0;
+				}
+			}
 		}
 	}
 	public void render(Graphics g) {
 		if(dir == right_dir) {
-			g.drawImage(rightPlayer[0],this.getX(), this.getY(), null);
+			g.drawImage(rightPlayer[index],this.getX(), this.getY(), null);
 		}else if(dir == left_dir) {
-			g.drawImage(leftPlayer[3],this.getX(), this.getY(), null);
+			g.drawImage(leftPlayer[index],this.getX(), this.getY(), null);
 		}
 	}
 }
