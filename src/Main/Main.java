@@ -23,9 +23,9 @@ public class Main extends Canvas implements Runnable,KeyListener{
 	public static JFrame frame;
 	private Thread thread;
 	private boolean isRunning = true;
-	private final int WIDTH = 320;
-	private final int HEIGHT = 320;
-	private final int SCALE = 2;
+	public static int WIDTH = 240;
+	public static int HEIGHT = 160;
+	private final int SCALE = 3;
 	
 	private BufferedImage image;
 	
@@ -93,7 +93,7 @@ public class Main extends Canvas implements Runnable,KeyListener{
 
 		
 		
-		g.setColor(new Color(255,255,255));
+		g.setColor(new Color(0,0,0));
 		g.fillRect(0, 0,160,120);
 		
 		world.render(g);

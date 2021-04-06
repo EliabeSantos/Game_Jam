@@ -3,6 +3,8 @@ package entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import world.camera;
+
 public class entity {
 	
 	public static BufferedImage LIFEPACK_EN = Main.Main.spritesheet.getSprite(7*16, 0, 16, 16);
@@ -49,6 +51,6 @@ public class entity {
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(sprite,this.getX(), this.getY(), null);
+		g.drawImage(sprite,this.getX() - camera.x, this.getY() - camera.y, null);
 	}
 }
